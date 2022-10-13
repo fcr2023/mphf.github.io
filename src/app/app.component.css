@@ -32,8 +32,8 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background-color: #5282ad;
-    color: white;
+    /* background-color: lightgray; */
+    color: rgb(21, 20, 20);
     font-weight: 600;
     font-size: 18px;
   }
@@ -229,15 +229,10 @@
   }
 
   footer {
-    margin-top: 8px;
+    margin-top: 400px;
     display: flex;
-    align-items: center;
+    justify-content: center;
     line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
   }
 
   .github-star-badge {
@@ -265,13 +260,16 @@
     margin-right: 4px;
   }
 
-  /* svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  } */
+  .button  {
+    display: flex; width: 71px; height: 68px; margin-bottom: 17px; margin-right: 230px;
+  }
+  .filter {
+    margin-top: 300px; display: flex; flex-direction: row; justify-content: space-between;
+  }
+
+  .button:focus {     
+    background-color:yellow;    
+  }
 
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
