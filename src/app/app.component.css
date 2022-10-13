@@ -229,7 +229,7 @@
   }
 
   footer {
-    margin-top: 400px;
+    margin-top: 250px;
     display: flex;
     justify-content: center;
     line-height: 20px;
@@ -261,12 +261,52 @@
   }
 
   .button  {
-    display: flex; width: 71px; height: 68px; margin-bottom: 17px; margin-right: 230px;
+    width: 71px; 
+    height: 68px; 
+    margin-bottom: 17px; 
+    margin-right: 230px;
+  }
+  .button2  {
+    height: 68px; 
+    margin-bottom: 17px; 
+    margin-right: 50px;
+    margin-left: 35px;
   }
   .filter {
-    margin-top: 300px; display: flex; flex-direction: row; justify-content: space-between;
+    margin-top: 300px; 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+  }
+  .login {
+    margin-top: 200px; 
+    margin-right: 500px; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    justify-content: center; 
+    margin-left: 500px;
+    border-color: gray;
+    border-style: groove;
   }
 
+  .email-form {
+    min-width: 150px;
+    max-width: 350px;
+    width: 100%;
+    margin-left: 35px;
+  }
+  .pwd-form {
+    min-width: 150px;
+    max-width: 350px;
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 35px;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
   .button:focus {     
     background-color:yellow;    
   }

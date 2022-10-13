@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mphf-71891": {
+      "hosting": {
+        "prescFilter": [
+          "mphf-71891"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mphf-71891"
+  }
+}

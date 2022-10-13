@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `<app-presc-filter></app-presc-filter>`,
+  selector: 'app-root-login',
+  template: `<login></login>`,
 })
 
 export class AppComponent{

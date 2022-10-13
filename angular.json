@@ -105,6 +105,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "prescFilter:build:production",
+            "firebaseProject": "mphf-71891",
+            "firebaseHostingSite": "mphf-71891"
+          }
         }
       }
     }

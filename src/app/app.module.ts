@@ -9,14 +9,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialExampleModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AppPrescFilter } from './filter-page.componet';
+import { AppPrescFilter } from './filter/filter-page.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AppLogin } from './login/login-page-component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppPrescFilter
+    AppPrescFilter,
+    AppLogin
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -27,7 +34,10 @@ import { AppPrescFilter } from './filter-page.componet';
     MatNativeDateModule,
     MaterialExampleModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
   providers: [
     {
