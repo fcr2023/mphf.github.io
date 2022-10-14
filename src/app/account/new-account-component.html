@@ -1,58 +1,65 @@
-<section class="h-100" style="margin-top: 300px;">
-    <div class="container h-100">
-        <div class="card reset-password-form-card">
-            <div class="card-body p-5">
-                <h4 class="card-title fw-bold mb-4">Create new Account</h4>
-                <form class="form" [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
-                    <div class="mb-3">
-                        <label for="newPassword">New password: </label>
-                        <input id="newPassword" type="password" class="form-control" formControlName="newPassword"
-                            #pw />
-                        <div *ngIf="
-                  newPassword.invalid &&
-                  (newPassword.dirty || newPassword.touched)
-                " class="form-text text-danger">
-                            <div *ngIf="newPassword.errors?.['required']">
-                                Field is required
-                            </div>
-                            <div *ngIf="newPassword.errors?.['pattern']">
-                                Password must contain at least one number, one uppercase and a
-                                lowercase letter and at least 8 characters<br />Password cannot
-                                contain whitespace
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirmPassword">New password (confirmation):</label>
-                        <input id="confirmPassword" type="password" class="form-control"
-                            [ngClass]="confirmPasswordClass" formControlName="confirmPassword" #cpw />
-                        <div *ngIf="
-                  confirmPassword.invalid &&
-                  (confirmPassword.dirty || confirmPassword.touched)
-                " class="form-text text-danger">
-                            <div *ngIf="confirmPassword.errors?.['required']">
-                                Field is required
-                            </div>
-                            <div *ngIf="confirmPassword.errors?.['pattern']">
-                                Password must contain at least one number, one uppercase and a
-                                lowercase letter and at least 8 characters<br />Password cannot
-                                contain whitespace
-                            </div>
-                            <div *ngIf="confirmPassword.errors?.['confirmedValidator']">
-                                Passwords did not match
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <button type="submit" [disabled]="resetPasswordForm.invalid" class="btn btn-dark col-5 mx-auto">
-                            Register
-                        </button>
-                        <button type="button" class="btn btn-light col-5 mx-auto" (click)="goBack()">
-                            Go back
-                        </button>
-                    </div>
-                </form>
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 200px;" [formGroup]="registerForm">
+    <span style="margin-bottom: 20px;">Add New Account</span>
+    <mat-form-field appearance="fill" style="width: 236px;">
+        <mat-label>User</mat-label>
+        <input type="email" name="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+            placeholder="Ex. pat@example.com">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="newPassword">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)" class="form-text text-danger">
+            <div *ngIf="newPassword.errors?.['required']">
+                Field is required
+            </div>
+            <div *ngIf="newPassword.errors?.['pattern']">
+                Password must contain at least one number, one uppercase and a
+                lowercase letter and at least 8 characters<br />Password cannot
+                contain whitespace
             </div>
         </div>
-    </div>
-</section>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Confirm your password</mat-label>
+        <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="confirmPassword">
+        <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide2">
+            <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <div *ngIf="
+                        confirmPassword.invalid &&
+                        (confirmPassword.dirty || confirmPassword.touched)
+                      " class="form-text text-danger">
+            <div *ngIf="confirmPassword.errors?.['required']">
+                Field is required
+            </div>
+            <div *ngIf="confirmPassword.errors?.['pattern']">
+                Password must contain at least one number, one uppercase and a
+                lowercase letter and at least 8 characters<br />Password cannot
+                contain whitespace
+            </div>
+            <div *ngIf="confirmPassword.errors?.['confirmedValidator']">
+                Passwords did not match
+            </div>
+        </div>
+    </mat-form-field>
+    <div style="display: flex;">
+            <div class="button2">
+              <button type="submit" (click)="onSubmit()" [disabled]="registerForm.invalid" mat-stroked-button>Register</button>
+            </div>
+            <div class="button" class="btn btn-light col-5 mx-auto" (click)="goBack()">
+              <button mat-raised-button color="primary">Go Back</button>
+            </div>
+      </div>
+</div>
