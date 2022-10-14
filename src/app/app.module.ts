@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AppLogin } from './login/login-page-component';
+import { AppNewAccount } from './account/new-account-component';
 
 
 
@@ -22,7 +23,8 @@ import { AppLogin } from './login/login-page-component';
   declarations: [
     AppComponent,
     AppPrescFilter,
-    AppLogin
+    AppLogin,
+    AppNewAccount,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

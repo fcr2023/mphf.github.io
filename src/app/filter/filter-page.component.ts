@@ -17,7 +17,7 @@ export interface Symptom {
 export class AppPrescFilter implements OnInit{
 
   constructor(
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
     private location: Location
   ) {}
 
