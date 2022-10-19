@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "prescFilter",
-    "public": "dist/presc-filter",
+    "public": "public",
     "ignore": [
       "**/.*"
     ],
@@ -31,5 +31,17 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "emulators": {
+    "firestore": {
+      "port": 4201
+    },
+    "hosting": {
+      "port": 4202
+    },
+    "ui": {
+      "enabled": false
+    },
+    "singleProjectMode": true
   }
 }

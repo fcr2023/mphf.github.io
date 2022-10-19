@@ -74,6 +74,10 @@
     height: 40px;
     margin: 0 16px;
   }
+  .toolbar #logout {
+    height: 22px;
+    margin: 0 16px;
+  }
 
   .toolbar #twitter-logo:hover,
   .toolbar #youtube-logo:hover,
@@ -307,7 +311,7 @@ input.example-right-align {
     margin-left: 5px;
   }
   .filter {
-    margin-top: 300px; 
+    margin-top: 20px; 
     display: flex; 
     flex-direction: row; 
     justify-content: space-between;
@@ -324,6 +328,23 @@ input.example-right-align {
     border-radius: 5%;
   }
 
+  .forgot-section {
+    margin-left: 300px;
+    margin-top: 300px;
+  }
+  .forgot-div {
+    margin-top: 20px;
+    display: flex;
+  }
+  .forgot-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .forgot-full-width {
+    width: 100%;
+  }
   .email-form {
     min-width: 150px;
     max-width: 350px;

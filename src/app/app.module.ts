@@ -16,6 +16,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AppLogin } from './login/login-page-component';
 import { AppNewAccount } from './account/new-account-component';
+import { AppResetAccount } from './account/reset-password-component';
+import { AppForgotPassword } from './login/forgot-pwd-component';
 
 
 
@@ -25,6 +27,8 @@ import { AppNewAccount } from './account/new-account-component';
     AppPrescFilter,
     AppLogin,
     AppNewAccount,
+    AppResetAccount,
+    AppForgotPassword
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
