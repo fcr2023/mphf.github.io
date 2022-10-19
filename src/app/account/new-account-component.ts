@@ -1,7 +1,6 @@
 import { Component, VERSION } from '@angular/core';
 import {
   AbstractControl,
-  ControlContainer,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -11,13 +10,38 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
+import { Router } from '@angular/router';
+import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore';
+import { user } from '@angular/fire/auth';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
+
+export interface UserProfile {
+  dependents: string;
+  dob: string;
+  fullname: string;
+  since: any;
+  uid: string;
+  zipcode: string;
+}
+
 @Component({
   selector: 'new-account',
   templateUrl: './new-account-component.html',
@@ -28,17 +52,14 @@ export class AppNewAccount {
   passwordsMatching = false;
   isConfirmPasswordDirty = false;
   confirmPasswordClass = 'form-control';
-  
-  user: string = '';
-  pwd: string = '';
-  pwdconf: string = '';
 
   hide = true;
   hide2 = true;
 
   matcher = new MyErrorStateMatcher();
-    
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  email = new FormControl(null, []);
+  profileName = new FormControl(null, []);
 
   newPassword = new FormControl(null, [
     (c: AbstractControl) => Validators.required(c),
@@ -54,10 +75,10 @@ export class AppNewAccount {
     ),
   ]);
 
-  // userName = new FormControl(null, [() => {}]);
-
   registerForm = this.formBuilder.group(
     {
+      profileName: this.profileName,
+      email: this.email,
       newPassword: this.newPassword,
       confirmPassword: this.confirmPassword,
     },
@@ -68,16 +89,108 @@ export class AppNewAccount {
 
   constructor(
     private formBuilder: FormBuilder,
-    private location: Location
-    ) {}
+    private location: Location,
+    private router: Router
+  ) {}
 
+  insertUserDb(): void {
+    console.log('estou aqui papai');
+
+    try {
+      async (db: any) => {
+        const docRef = await addDoc(collection(db, 'usuarios'), {
+          dependents: 'ID here',
+          dob: '12/23/1981',
+          fullname: 'Fredson Ribeiro',
+          since: new Date().getTime,
+          uid: '1234',
+          zipcode: '27707',
+        });
+        console.log('Document written with ID: ', docRef.id);
+      };
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
+  }
   onSubmit(): void {
-    console.log(this.user);
-    console.log(this.pwd);
     console.log(this.registerForm);
+    console.log(this.registerForm.value.profileName);
+    console.log(this.registerForm.value.email);
+    console.log(this.registerForm.value.newPassword);
+
     if (!this.registerForm?.valid) {
       return;
     }
+    //destructuring
+    const { profileName, email, newPassword } = this.registerForm.value;
+
+    console.log('Creating new user');
+    console.log(email);
+    console.log(newPassword);
+
+    // Get a list of users from your database
+    const db = getFirestore();
+
+    this.insertUserDb();
+
+    async function addUser(db: any) {
+      const usersCol = collection(db, 'usuarios');
+      const today = new Date().toLocaleDateString;
+      const UsersSnapshot = await addDoc(usersCol, {
+        dependents: 'Carlos bolsonaro',
+        dob: '01/01/1957',
+        fullname: 'Bolsonaro',
+        since: '10/17/2022',
+        uid: 'wIHOGs6h1UeKGibuZom3RnYApBr2',
+        zipcode: '27707',
+      });
+
+      alert('insert successfull');
+    }
+    async function getUsers(db: any) {
+      const usersCol = collection(db, 'usuarios');
+      const UsersSnapshot = await getDocs(usersCol);
+      const usersList = UsersSnapshot.docs.map((doc) => doc.data());
+
+      return usersList;
+    }
+
+    const ins = addUser(db);
+    const users = getUsers(db);
+    console.log('Users List = ', users);
+
+    const auth = getAuth();
+
+    console.log(auth);
+
+    createUserWithEmailAndPassword(auth, email, newPassword)
+      .then((userCredential) => {
+        console.log(userCredential);
+
+        // Signed in
+        const user = userCredential.user;
+        console.log('User datas: ', user);
+
+        if (user) {
+          alert('User success created!');
+          updateProfile(user, {
+            displayName: profileName,
+          })
+            .then(() => {
+              // Profile updated!
+              this.router.navigateByUrl('/login');
+            })
+            .catch((error) => {
+              // An error occurred
+              const errorCode = error.code;
+              const errorMessage = error.message;
+            });
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   }
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {
