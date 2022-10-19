@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,6 +37,8 @@ export class AppForgotPassword {
 
   matcher = new MyErrorStateMatcher();
 
+  constructor(private router: Router) {};
+
   sendEmail(): void {
     
     const email  = this.emailFormControl.value;
@@ -44,16 +47,16 @@ export class AppForgotPassword {
     console.log(email);
 
     const auth = getAuth();
-    auth.languageCode = 'it';
+    // auth.languageCode = 'it';
 
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        alert('An E-mail password reset was sent!')
+        alert('An E-mail password reset was sent! Make sure that was not in your trash.')
+        this.router.navigateByUrl('/login');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   }
 }
