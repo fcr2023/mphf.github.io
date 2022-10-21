@@ -55,8 +55,8 @@ export class AppForgotPassword {
         this.router.navigateByUrl('/login');
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        const msg: string = error.code;
+        alert(msg.substring(5));
       });
   }
 }

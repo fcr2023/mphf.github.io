@@ -42,7 +42,7 @@
     <span style="margin-bottom: 20px;">Add New Account</span>
     <mat-form-field appearance="fill" style="width: 236px;">
         <mat-label>Profile Name</mat-label>
-        <input type="text" name="profile-name" matInput formControlName="profileName" placeholder="Ex. Bolsonaro Bobao">
+        <input type="text" maxlength="15" name="profile-name" matInput formControlName="profileName" placeholder="Ex. Bolsonaro Bobao">
     </mat-form-field>
     <mat-form-field appearance="fill" style="width: 236px;">
         <mat-label>User E-mail</mat-label>
@@ -57,7 +57,7 @@
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-        <mat-label>Enter your password</mat-label>
+        <mat-label>Enter your new password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" formControlName="newPassword">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">

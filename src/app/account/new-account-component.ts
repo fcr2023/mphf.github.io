@@ -1,4 +1,4 @@
-import { Component, VERSION } from '@angular/core';
+import { Component, OnInit, VERSION } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -47,7 +47,7 @@ export interface UserProfile {
   templateUrl: './new-account-component.html',
   styleUrls: ['../app.component.css'],
 })
-export class AppNewAccount {
+export class AppNewAccount implements OnInit{
   name = 'Angular ' + VERSION.major;
   passwordsMatching = false;
   isConfirmPasswordDirty = false;
@@ -58,6 +58,7 @@ export class AppNewAccount {
 
   matcher = new MyErrorStateMatcher();
 
+  
   email = new FormControl(null, []);
   profileName = new FormControl(null, []);
 
@@ -113,10 +114,6 @@ export class AppNewAccount {
     }
   }
   onSubmit(): void {
-    console.log(this.registerForm);
-    console.log(this.registerForm.value.profileName);
-    console.log(this.registerForm.value.email);
-    console.log(this.registerForm.value.newPassword);
 
     if (!this.registerForm?.valid) {
       return;
@@ -136,6 +133,8 @@ export class AppNewAccount {
     async function addUser(db: any) {
       const usersCol = collection(db, 'usuarios');
       const today = new Date().toLocaleDateString;
+      console.log(today);
+      
       const UsersSnapshot = await addDoc(usersCol, {
         dependents: 'Carlos bolsonaro',
         dob: '01/01/1957',
@@ -161,8 +160,6 @@ export class AppNewAccount {
 
     const auth = getAuth();
 
-    console.log(auth);
-
     createUserWithEmailAndPassword(auth, email, newPassword)
       .then((userCredential) => {
         console.log(userCredential);
@@ -182,14 +179,14 @@ export class AppNewAccount {
             })
             .catch((error) => {
               // An error occurred
-              const errorCode = error.code;
-              const errorMessage = error.message;
+              const msg: string = error.code;
+              alert(msg.substring(5));
             });
         }
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        const msg: string = error.code;
+        alert(msg.substring(5));
       });
   }
 
@@ -212,5 +209,10 @@ export class AppNewAccount {
   }
   goBack(): void {
     this.location.back();
+  }
+  ngOnInit(): void {
+    console.log('tem registro aqui ', this.registerForm);
+    
+    // this.registerForm.reset();
   }
 }
