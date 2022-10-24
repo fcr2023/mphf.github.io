@@ -19,6 +19,7 @@ export class AppPrescFilter implements OnInit {
   constructor(private location: Location, private router: Router) {}
 
   userName: string = '';
+  provider: string = '';
   title = 'prescFilter';
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -48,13 +49,15 @@ export class AppPrescFilter implements OnInit {
 
   logout(): void {
     const auth = getAuth();
-    signOut(auth).then(() => {
-      // alert('Sign-out successful!');
-      this.router.navigateByUrl('/login')
-    }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
+    signOut(auth)
+      .then(() => {
+        // alert('Sign-out successful!');
+        this.router.navigateByUrl('/login');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   }
   ngOnInit(): void {
     //to do: get the list of tags
@@ -63,8 +66,12 @@ export class AppPrescFilter implements OnInit {
 
     if (user !== null) {
       user.providerData.forEach((profile) => {
+        console.log(profile);
+
         if(profile.displayName) this.userName = profile.displayName;
-        console.log('Sign-in provider: ' + profile.providerId);
+        this.provider = profile.providerId;
+
+        console.log('  Sign-in provider: ' + profile.providerId);
         console.log('  Provider-specific UID: ' + profile.uid);
         console.log('  Name: ' + profile.displayName);
         console.log('  Email: ' + profile.email);
@@ -76,6 +83,5 @@ export class AppPrescFilter implements OnInit {
   search(): void {
     // this.location.back();
     console.log('::::::: going to database get the prescription');
-    
   }
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppNewAccount } from './account/new-account-component';
+import { AppProfile } from './account/profile-component';
 import { AppResetAccount } from './account/reset-password-component';
 import { AppPrescFilter } from './filter/filter-page.component';
 import { AppForgotPassword } from './login/forgot-pwd-component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'newuser', component: AppNewAccount},
   { path: 'forgotpwd', component: AppForgotPassword},
   { path: 'updatepwd', component: AppResetAccount},
-  { path: 'new-prescription', component: AppPrescription}
+  { path: 'new-prescription', component: AppPrescription},
+  { path: 'profile', component: AppProfile}
 ];
 
 

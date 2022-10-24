@@ -40,7 +40,7 @@
     font-family: 'Courier New', Courier, monospace; 
     font-size: x-large; 
     font-weight: bold; 
-    margin-left: 175px;
+    margin-left: 172px;
   }
 
   .toolbar {
@@ -309,6 +309,11 @@ input.example-right-align {
     height: 68px; 
     margin-right: 25px;
     margin-left: 5px;
+  }
+  .button3  {
+    height: 68px; 
+    margin-right: 10px;
+    /* margin-left: 5px; */
   }
   .filter {
     margin-top: 20px; 

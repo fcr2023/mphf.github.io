@@ -144,7 +144,7 @@ export class AppNewAccount implements OnInit{
         zipcode: '27707',
       });
 
-      alert('insert successfull');
+      alert('successfully inserted');
     }
     async function getUsers(db: any) {
       const usersCol = collection(db, 'usuarios');
@@ -169,9 +169,11 @@ export class AppNewAccount implements OnInit{
         console.log('User datas: ', user);
 
         if (user) {
-          alert('User success created!');
+          alert('User successfully created!');
           updateProfile(user, {
             displayName: profileName,
+            // photoURL: "https://example.com/jane-q-user/profile.jpg"
+
           })
             .then(() => {
               // Profile updated!

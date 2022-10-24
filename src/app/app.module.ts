@@ -22,6 +22,7 @@ import { AppNewAccount } from './account/new-account-component';
 import { AppResetAccount } from './account/reset-password-component';
 import { AppForgotPassword } from './login/forgot-pwd-component';
 import { AppPrescription } from './prescription/prescription-component';
+import { AppProfile } from './account/profile-component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { AppPrescription } from './prescription/prescription-component';
     AppResetAccount,
     AppForgotPassword,
     AppPrescription,
+    AppProfile
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
