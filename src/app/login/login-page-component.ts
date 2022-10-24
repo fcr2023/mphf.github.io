@@ -74,7 +74,6 @@ export class AppLogin {
           // Signed in
 
           const user = userCredential.user;
-          console.log(user);
 
           this.router.navigateByUrl('/filter');
         })
@@ -90,13 +89,13 @@ export class AppLogin {
     console.log('Gogle Provider = ', this.googleProvider);
     console.log('provider ID ==== ', this.googleProvider.providerId);
 
-    if(this.auth.currentUser) {
-      signOut(this.auth).then(() => {
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-    }
+    // if(this.auth.currentUser) {
+    //   signOut(this.auth).then(() => {
+    //   }).catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //   });
+    // }
     this.signWithGoogle();
   }
 

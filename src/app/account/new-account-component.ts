@@ -214,6 +214,7 @@ export class AppNewAccount implements OnInit{
   }
   ngOnInit(): void {
     console.log('tem registro aqui ', this.registerForm);
+    this.email.reset;
     
     // this.registerForm.reset();
   }

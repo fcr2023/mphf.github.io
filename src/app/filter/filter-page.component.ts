@@ -18,6 +18,8 @@ export interface Symptom {
 export class AppPrescFilter implements OnInit {
   constructor(private location: Location, private router: Router) {}
 
+  auth = getAuth();
+
   userName: string = '';
   provider: string = '';
   title = 'prescFilter';
@@ -48,8 +50,7 @@ export class AppPrescFilter implements OnInit {
   }
 
   logout(): void {
-    const auth = getAuth();
-    signOut(auth)
+    signOut(this.auth)
       .then(() => {
         // alert('Sign-out successful!');
         this.router.navigateByUrl('/login');
@@ -61,12 +62,10 @@ export class AppPrescFilter implements OnInit {
   }
   ngOnInit(): void {
     //to do: get the list of tags
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const user = this.auth.currentUser;
 
     if (user !== null) {
       user.providerData.forEach((profile) => {
-        console.log(profile);
 
         if(profile.displayName) this.userName = profile.displayName;
         this.provider = profile.providerId;

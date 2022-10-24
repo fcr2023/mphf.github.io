@@ -1,18 +1,18 @@
 <div class="toolbar" role="banner">
     <nav>
         <a routerLink="/login" title="Home">
-          <svg version="1.1" id="pill-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px" y="0px" width="50px" height="40px" viewBox="0 0 520.532 520.532"
-              style="enable-background:new 0 0 520.532 520.532;" xml:space="preserve">
-              <path d="M407.666,147.391H112.875C50.637,147.391,0,198.025,0,260.263c0,62.24,50.637,112.878,112.875,112.878h294.791
+            <svg version="1.1" id="pill-logo" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px" height="40px"
+                viewBox="0 0 520.532 520.532" style="enable-background:new 0 0 520.532 520.532;" xml:space="preserve">
+                <path d="M407.666,147.391H112.875C50.637,147.391,0,198.025,0,260.263c0,62.24,50.637,112.878,112.875,112.878h294.791
                 c62.229,0,112.866-50.638,112.866-112.878C520.532,198.025,469.9,147.391,407.666,147.391z M142.727,192.363
                 c-78.586,0-83.98,41.81-84.021,42.238c-0.618,5.739-5.467,10.001-11.121,10.001c-0.393,0-0.798-0.018-1.197-0.068
                 c-6.156-0.653-10.604-6.18-9.945-12.32c0.272-2.545,7.802-62.241,106.284-62.241c6.18,0,11.198,5.012,11.198,11.198
                 S148.913,192.363,142.727,192.363z M407.666,345.153h-95.151V175.379h95.151c46.808,0,84.885,38.083,84.885,84.884
                 C492.55,307.07,454.473,345.153,407.666,345.153z" />
-          </svg>
+            </svg>
         </a>
-      </nav>
+    </nav>
 
     <span>Welcome to Medical Prescription History Filter - MPHF</span>
     <div class="spacer"></div>
@@ -42,32 +42,23 @@
     <span style="margin-bottom: 20px;">Profile</span>
     <mat-form-field appearance="fill" style="width: 280px;">
         <mat-label>Profile Name</mat-label>
-        <input type="text" maxlength="15" name="profile-name" matInput formControlName="profileName" placeholder="Ex. Bolsonaro Bobao">
+        <input type="text" maxlength="15" name="profile-name" matInput formControlName="profileName"
+            placeholder="Ex. Bolsonaro Bobao">
     </mat-form-field>
     <mat-form-field appearance="fill" style="width: 280px;">
         <mat-label>User E-mail</mat-label>
         <input type="email" name="email" matInput formControlName="email" [errorStateMatcher]="matcher"
             placeholder="Ex. pat@example.com">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-            Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="email.hasError('required')">
-            Email is <strong>required</strong>
-        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" style="width: 280px;">
         <mat-label>Enter your Current password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" formControlName="newPassword">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)" class="form-text text-danger">
-            <div *ngIf="newPassword.errors?.['required']">
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="currentPassword">
+        <div *ngIf="currentPassword.invalid && (currentPassword.dirty || currentPassword.touched)"
+            class="form-text text-danger">
+            <div *ngIf="currentPassword.errors?.['required']">
                 Field is required
             </div>
-            <div *ngIf="newPassword.errors?.['pattern']">
+            <div *ngIf="currentPassword.errors?.['pattern']">
                 Password must contain at least one number, one uppercase and a
                 lowercase letter and at least 8 characters<br />Password cannot
                 contain whitespace
@@ -76,24 +67,24 @@
     </mat-form-field>
     <mat-form-field appearance="fill" style="width: 280px;">
         <mat-label>Enter your new password</mat-label>
-        <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="confirmPassword">
+        <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="newPassword">
         <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide2">
             <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <div *ngIf="
-                        confirmPassword.invalid &&
-                        (confirmPassword.dirty || confirmPassword.touched)
+                        newPassword.invalid &&
+                        (newPassword.dirty || newPassword.touched)
                       " class="form-text text-danger">
-            <div *ngIf="confirmPassword.errors?.['required']">
+            <div *ngIf="newPassword.errors?.['required']">
                 Field is required
             </div>
-            <div *ngIf="confirmPassword.errors?.['pattern']">
+            <div *ngIf="newPassword.errors?.['pattern']">
                 Password must contain at least one number, one uppercase and a
                 lowercase letter and at least 8 characters<br />Password cannot
                 contain whitespace
             </div>
-            <div *ngIf="confirmPassword.errors?.['confirmedValidator']">
+            <div *ngIf="newPassword.errors?.['confirmedValidator']">
                 Passwords did not match
             </div>
         </div>

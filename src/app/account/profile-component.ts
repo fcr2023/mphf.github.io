@@ -52,14 +52,9 @@ export class AppProfile{
   
   profileName = new FormControl({value: this.auth.currentUser?.displayName, disabled:true}, []);
 
-  newPassword = new FormControl(null, [
-    (c: AbstractControl) => Validators.required(c),
-    Validators.pattern(
-      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
-    ),
-  ]);
+  currentPassword = new FormControl({value: this.auth.currentUser?.uid, disabled:true }, []);
 
-  confirmPassword = new FormControl(null, [
+  newPassword = new FormControl(null, [
     (c: AbstractControl) => Validators.required(c),
     Validators.pattern(
       /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
@@ -70,12 +65,9 @@ export class AppProfile{
     {
       profileName: this.profileName,
       email: this.email,
+      currentPassword: this.currentPassword,
       newPassword: this.newPassword,
-      confirmPassword: this.confirmPassword,
     },
-    {
-      validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
-    }
   );
 
   constructor(
@@ -83,24 +75,6 @@ export class AppProfile{
     private location: Location,
     private router: Router
     ) {}
-
-  ConfirmedValidator(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (
-        matchingControl.errors &&
-        !matchingControl.errors['confirmedValidator']
-      ) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ confirmedValidator: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    };
-  }
 
   deleteProfile(): void {
     const user = this.auth.currentUser;
@@ -124,10 +98,11 @@ export class AppProfile{
      
       
       const user = this.auth.currentUser;
-      if (!user) {
+      const { newPassword } = this.registerForm.value;
+
+      if (!user || !newPassword) {
         return;
       }
-      const { newPassword } = this.registerForm.value;
       
       updatePassword(user, newPassword)
       .then(() => {
