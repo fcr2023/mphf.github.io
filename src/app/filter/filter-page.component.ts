@@ -52,7 +52,6 @@ export class AppPrescFilter implements OnInit {
   logout(): void {
     signOut(this.auth)
       .then(() => {
-        // alert('Sign-out successful!');
         this.router.navigateByUrl('/login');
       })
       .catch((error) => {
@@ -80,7 +79,7 @@ export class AppPrescFilter implements OnInit {
   }
 
   search(): void {
-    // this.location.back();
+    alert('building!!');
     console.log('::::::: going to database get the prescription');
   }
 }
