@@ -181,7 +181,7 @@
   }
 
   /* Responsive Styles */
-  @media screen and (max-width: 767px) {
+  /* @media screen and (max-width: 767px) {
     svg#rocket-smoke {
       right: 120px;
       transform: rotate(-5deg);
@@ -193,4 +193,4 @@
       display: none;
       visibility: hidden;
     }
-  }
+  } */
