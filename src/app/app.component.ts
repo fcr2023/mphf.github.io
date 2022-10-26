@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { app } from './services/firebase-init';
+import { app } from './config/firebase-init';
 
 app;
 

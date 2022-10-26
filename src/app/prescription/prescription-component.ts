@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { getStorage, ref } from "firebase/storage";
-import { app } from "../services/firebase-init";
+import { app } from "../config/firebase-init";
 
 const storage = getStorage(app);
 

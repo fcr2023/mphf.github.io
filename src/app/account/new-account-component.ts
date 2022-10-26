@@ -14,6 +14,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  sendEmailVerification,
 } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore';
@@ -47,18 +48,19 @@ export interface UserProfile {
   templateUrl: './new-account-component.html',
   styleUrls: ['../app.component.css'],
 })
-export class AppNewAccount implements OnInit{
+export class AppNewAccount implements OnInit {
   name = 'Angular ' + VERSION.major;
   passwordsMatching = false;
   isConfirmPasswordDirty = false;
   confirmPasswordClass = 'form-control';
+
+  auth = getAuth();
 
   hide = true;
   hide2 = true;
 
   matcher = new MyErrorStateMatcher();
 
-  
   email = new FormControl(null, []);
   profileName = new FormControl(null, []);
 
@@ -114,7 +116,6 @@ export class AppNewAccount implements OnInit{
     }
   }
   onSubmit(): void {
-
     if (!this.registerForm?.valid) {
       return;
     }
@@ -134,7 +135,7 @@ export class AppNewAccount implements OnInit{
       const usersCol = collection(db, 'usuarios');
       const today = new Date().toLocaleDateString;
       console.log(today);
-      
+
       const UsersSnapshot = await addDoc(usersCol, {
         dependents: 'Carlos bolsonaro',
         dob: '01/01/1957',
@@ -158,9 +159,7 @@ export class AppNewAccount implements OnInit{
     const users = getUsers(db);
     console.log('Users List = ', users);
 
-    const auth = getAuth();
-
-    createUserWithEmailAndPassword(auth, email, newPassword)
+    createUserWithEmailAndPassword(this.auth, email, newPassword)
       .then((userCredential) => {
         console.log(userCredential);
 
@@ -173,10 +172,15 @@ export class AppNewAccount implements OnInit{
           updateProfile(user, {
             displayName: profileName,
             // photoURL: "https://example.com/jane-q-user/profile.jpg"
-
           })
             .then(() => {
               // Profile updated!
+              // if (this.auth.currentUser) {
+              //   sendEmailVerification(this.auth.currentUser).then(() => {
+              //     // Email verification sent!
+              //     alert('Email verification sent!');
+              //   });
+              // }
               this.router.navigateByUrl('/login');
             })
             .catch((error) => {
@@ -215,7 +219,7 @@ export class AppNewAccount implements OnInit{
   ngOnInit(): void {
     console.log('tem registro aqui ', this.registerForm);
     this.email.reset;
-    
+
     // this.registerForm.reset();
   }
 }

@@ -66,7 +66,7 @@ export class AppPrescFilter implements OnInit {
     if (user !== null) {
       user.providerData.forEach((profile) => {
 
-        if(profile.displayName) this.userName = profile.displayName;
+        if(profile.displayName) this.userName = profile.displayName.substring(0,25);
         this.provider = profile.providerId;
 
         console.log('  Sign-in provider: ' + profile.providerId);
